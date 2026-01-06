@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import "../styles/Home.css";
+import LeftPanel from "../images/leftPanel.svg";
+import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
   const [url, setUrl] = useState("");
   const [standard, setStandard] = useState("WCAG 2.1 & 2.2"); // Updated to match screenshot
+
+  const navigate = useNavigate();
+
 
   const handleScan = () => {
     if (!url) {
@@ -13,6 +19,12 @@ const Home = () => {
     // API integration later
     console.log("Website URL:", url);
     console.log("Selected Standard:", standard);
+     navigate("/loader", {
+    state: {
+      url,
+      standard,
+    },
+  });
   };
 
   return (
@@ -23,7 +35,7 @@ const Home = () => {
       <main className="home-main">
         {/* Left side - Example result cards */}
         <div className="results-preview">
-         
+         <img src={LeftPanel} />
         </div>
 
         {/* Right side - Main content */}
@@ -64,15 +76,16 @@ const Home = () => {
 
             <button onClick={handleScan}>Start Scan</button>
           </div>
-        </div>
-      </main>
-
-      <footer className="home-footer">
+          <footer className="home-footer">
         <span>Privacy Policy</span>
         <span>•</span>
         <span>Terms & Conditions</span>
         <span className="copyright">Copyright © Skynettechnologies.com</span>
       </footer>
+        </div>
+      </main>
+
+      
     </div>
   );
 };
